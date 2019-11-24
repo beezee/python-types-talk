@@ -1,41 +1,183 @@
-% title: Title of my presentation
-% subtitle: And a subtitle
-% author: Firstname Lastname
-% author: Other info to put on the author line
+% title: Better Python with types
+% subtitle: Getting the most out of mypy
+% author: Brian Zeligson
+% author: ISC Tech Strategy
 % thankyou: Thanks everyone!
-% thankyou_details: And especially these people:
-% contact: <span>www</span> <a href="http://www.google.edu/">website</a>
-% contact: <span>github</span> <a href="http://github.com">username</a>
-% favicon: http://www.stanford.edu/favicon.ico
 
 ---
-title: Intro slide
+title: Agenda
+
+- Motivation
+- Types as Sets
+- Tuples
+- Functions
+- Classes
+- Shrinking Sets, forgetting on purpose
+- Examples, how many ways can we implement this?
+- There's more - Addition? Algebra? Factorization and Reduction?
+
+---
+title: Static knowledge
+
+Typechecker looks at code without running
+
+Software runs many times, what you know before running, you know _every_ time it runs
+
+How much can you really know before running?
+
+---
+title: Types are Sets
 build_lists: true
 
-Here is a list that should build:
-
-- I like formulas, like this one $e=mc^2$
-- It's rendered using MathJax. You can change the settings by editing base.html if you like
-- pressing 'f' toggle fullscreen
-- pressing 'w' toggles widescreen
-- 'o' toggles overview mode
+- $str=\{, a, b, ..., aa, ab, ...\}$
+- $int=\{..., -2, -1, 0, 1, 2, ...\}$
+- $bool=\{true, false\}$
+- $void=\{\}$
+- $unit=\{0\}$
 
 ---
-title: Slide with a figure
-subtitle: Subtitles are cool too
-class: img-top-center
+title: Example Types
+subtitle: Zero to Three
 
-<img height=150 src=figures/200px-6n-graf.svg.png />
-
-- Some point to make about about this figure from wikipedia
-- This slide has a class that was defined in theme/css/custom.css
-
-<footer class="source"> Always cite your sources! </footer>
+- $void=\{\}$
+- $unit=\{0\}$
+- $bool=\{true, false\}$
+- $tl=\{red, yellow, green\}$
 
 ---
-title: Segue slide
-subtitle: I can haz subtitlz?
-class: segue dark nobackground
+title: Composite Types
+subtitle: Tuple
+build_lists: true
+
+$(bool, bool)$
+
+- $(true, true)$
+- $(true, false)$
+- $(false, true)$
+- $(false, false)$
+
+---
+title: Composite Types
+subtitle: Tuple
+
+$(bool, tl)$
+
+---
+title: Composite Types
+subtitle: Tuple
+
+$(bool, tl)$
+
+- $(true, red)$
+- $(true, green)$
+- $(true, yellow)$
+- $(false, red)$
+- $(false, green)$
+- $(false, yellow)$
+
+---
+title: Composite Types
+subtitle: Tuple
+
+- $(bool, bool) = (2, 2) = 4$
+- $(bool, tl) = (2, 3) = 6$
+- $(A, B) = A * B$
+
+---
+title: Composite Types
+subtitle: Tuple = Product 
+
+- $(A, B) = A * B$
+
+---
+title: Composite Types
+subtitle: Product
+build_lists: true
+
+$(unit, tl)$
+
+- $(0, red)$
+- $(0, yellow)$
+- $(0, green)$
+
+---
+title: Composite Types
+subtitle: Product
+
+$(void, tl)$
+
+---
+title: Composite Types
+subtitle: Function
+build_lists: true
+
+- Input set $A$
+- Output set $B$
+
+---
+title: Composite Types
+subtitle: Function
+
+- Input set $A$
+- Output set $B$
+- For each element $a$ in $A$, picks one element $b$ in $B$
+
+<image src="/330px-Codomain2.SVG.png" />
+
+---
+title: Composite Types
+subtitle: Function 
+build_lists: true
+
+$tl \rightarrow bool$
+
+- For each element $l$ in $tl$, pick one element $b$ in $bool$
+- example - ${(red, false), (yellow, true), (green, true)}$
+- $(false, true, true)$
+- $(tl \rightarrow bool) = (bool, bool, bool) = 2 * 2 * 2$
+
+---
+title: Composite Types
+subtitle: Function 
+build_lists: true
+
+$bool \rightarrow tl$
+
+- For each element $b$ in $bool$, pick one element $l$ in $tl$
+- example - ${(false, red), (true, yellow)}$
+- $(red, yellow)$
+- $(bool \rightarrow tl) = (tl, tl) = 3 * 3$
+
+---
+title: Composite Types
+subtitle: Function
+
+- $(tl \rightarrow bool) = (bool, bool, bool) = (2 * 2 * 2) = 8$
+- $(bool \rightarrow tl) = (tl, tl) = (3 * 3) = 9$
+- $(A \rightarrow B) = B ^ A$
+
+---
+title: Composite Types
+subtitle: Function = Exponent
+
+- $(A \rightarrow B) = B ^ A$
+
+---
+title: Composite Types
+subtitle: Classes
+
+
+---
+title: Code examples
+
+- Semigroupal append (mono/poly)
+- Composition (mono/poly)
+- Functoriality (use class from class counting)
+
+---
+title: Bonus examples
+
+Lexical scope in classes, adjusted algebra
 
 ---
 title: Maybe some code?

@@ -1,0 +1,410 @@
+<!--
+slidedeck: A modification of the Google IO 2012 HTML5 slide template
+URL: https://github.com/rmcgibbo/slidedeck
+
+Based on https://github.com/francescolaffi/elastic-google-io-slides, and
+ultimately:
+
+Google IO 2012 HTML5 Slide Template
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahe <lukem@google.com>
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Better Python with types</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="all" href="theme/css/custom.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides", src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
+
+
+  <!-- MathJax support  -->
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    showProcessingMessages: false,
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    TeX: {
+      extensions: ["color.js"]
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+  </script>
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <div style="display:hidden">
+  \[
+    \definecolor{data}{RGB}{18,110,213}
+    \definecolor{unknown}{RGB}{217,86,16}
+    \definecolor{learned}{RGB}{175,114,176}
+  \]
+  </div>
+
+</head>
+
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+<slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+
+    <h1> Better Python with types</h1>
+    <h2> Getting the most out of mypy</h2>
+    <p> Brian Zeligson<br/> ISC Tech Strategy</p>
+  </hgroup>
+</slide>
+
+
+<slide  >
+  
+    <hgroup>
+      <h2>Agenda</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><ul>
+<li>Motivation</li>
+<li>Types as Sets</li>
+<li>Tuples</li>
+<li>Functions</li>
+<li>Classes</li>
+<li>Shrinking Sets, forgetting on purpose</li>
+<li>Examples, how many ways can we implement this?</li>
+<li>There's more - Addition? Algebra? Factorization and Reduction?</li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Static knowledge</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Typechecker looks at code without running</p>
+<p>Software runs many times, what you know before running, you know <em>every</em> time it runs</p>
+<p>How much can you really know before running?</p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Types are Sets</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><ul class="build">
+<li><mathjax>$str=\{, a, b, ..., aa, ab, ...\}$</mathjax></li>
+<li><mathjax>$int=\{..., -2, -1, 0, 1, 2, ...\}$</mathjax></li>
+<li><mathjax>$bool=\{true, false\}$</mathjax></li>
+<li><mathjax>$void=\{\}$</mathjax></li>
+<li><mathjax>$unit=\{0\}$</mathjax></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Example Types</h2>
+      <h3>Zero to Three</h3>
+    </hgroup>
+    <article ><ul>
+<li><mathjax>$void=\{\}$</mathjax></li>
+<li><mathjax>$unit=\{0\}$</mathjax></li>
+<li><mathjax>$bool=\{true, false\}$</mathjax></li>
+<li><mathjax>$tl=\{red, yellow, green\}$</mathjax></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Tuple</h3>
+    </hgroup>
+    <article ><p><mathjax>$(bool, bool)$</mathjax></p>
+<ul class="build">
+<li><mathjax>$(true, true)$</mathjax></li>
+<li><mathjax>$(true, false)$</mathjax></li>
+<li><mathjax>$(false, true)$</mathjax></li>
+<li><mathjax>$(false, false)$</mathjax></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Tuple</h3>
+    </hgroup>
+    <article ><p><mathjax>$(bool, tl)$</mathjax></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Tuple</h3>
+    </hgroup>
+    <article ><p><mathjax>$(bool, tl)$</mathjax></p>
+<ul>
+<li><mathjax>$(true, red)$</mathjax></li>
+<li><mathjax>$(true, green)$</mathjax></li>
+<li><mathjax>$(true, yellow)$</mathjax></li>
+<li><mathjax>$(false, red)$</mathjax></li>
+<li><mathjax>$(false, green)$</mathjax></li>
+<li><mathjax>$(false, yellow)$</mathjax></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Tuple</h3>
+    </hgroup>
+    <article ><ul>
+<li><mathjax>$(bool, bool) = (2, 2) = 4$</mathjax></li>
+<li><mathjax>$(bool, tl) = (2, 3) = 6$</mathjax></li>
+<li><mathjax>$(A, B) = A * B$</mathjax></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Tuple = Product</h3>
+    </hgroup>
+    <article ><ul>
+<li><mathjax>$(A, B) = A * B$</mathjax></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Product</h3>
+    </hgroup>
+    <article ><p><mathjax>$(unit, tl)$</mathjax></p>
+<ul class="build">
+<li><mathjax>$(0, red)$</mathjax></li>
+<li><mathjax>$(0, yellow)$</mathjax></li>
+<li><mathjax>$(0, green)$</mathjax></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Product</h3>
+    </hgroup>
+    <article ><p><mathjax>$(void, tl)$</mathjax></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Function</h3>
+    </hgroup>
+    <article ><ul class="build">
+<li>Input set <mathjax>$A$</mathjax></li>
+<li>Output set <mathjax>$B$</mathjax></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Function</h3>
+    </hgroup>
+    <article ><ul>
+<li>Input set <mathjax>$A$</mathjax></li>
+<li>Output set <mathjax>$B$</mathjax></li>
+<li>For each element <mathjax>$a$</mathjax> in <mathjax>$A$</mathjax>, picks one element <mathjax>$b$</mathjax> in <mathjax>$B$</mathjax></li>
+</ul>
+<p><image src="/330px-Codomain2.SVG.png" /></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Function</h3>
+    </hgroup>
+    <article ><p><mathjax>$tl \rightarrow bool$</mathjax></p>
+<ul class="build">
+<li>For each element <mathjax>$l$</mathjax> in <mathjax>$tl$</mathjax>, pick one element <mathjax>$b$</mathjax> in <mathjax>$bool$</mathjax></li>
+<li>example - <mathjax>${(red, false), (yellow, true), (green, true)}$</mathjax></li>
+<li><mathjax>$(false, true, true)$</mathjax></li>
+<li><mathjax>$(tl \rightarrow bool) = (bool, bool, bool) = 2 * 2 * 2$</mathjax></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Function</h3>
+    </hgroup>
+    <article ><p><mathjax>$bool \rightarrow tl$</mathjax></p>
+<ul class="build">
+<li>For each element <mathjax>$b$</mathjax> in <mathjax>$bool$</mathjax>, pick one element <mathjax>$l$</mathjax> in <mathjax>$tl$</mathjax></li>
+<li>example - <mathjax>${(false, red), (true, yellow)}$</mathjax></li>
+<li><mathjax>$(red, yellow)$</mathjax></li>
+<li><mathjax>$(bool \rightarrow tl) = (tl, tl) = 3 * 3$</mathjax></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Function</h3>
+    </hgroup>
+    <article ><ul>
+<li><mathjax>$(tl \rightarrow bool) = (bool, bool, bool) = (2 * 2 * 2) = 8$</mathjax></li>
+<li><mathjax>$(bool \rightarrow tl) = (tl, tl) = (3 * 3) = 9$</mathjax></li>
+<li><mathjax>$(A \rightarrow B) = B ^ A$</mathjax></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Function = Exponent</h3>
+    </hgroup>
+    <article ><ul>
+<li><mathjax>$(A \rightarrow B) = B ^ A$</mathjax></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Composite Types</h2>
+      <h3>Classes</h3>
+    </hgroup>
+    <article ></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Code examples</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><ul>
+<li>Semigroupal append (mono/poly)</li>
+<li>Composition (mono/poly)</li>
+<li>Functoriality (use class from class counting)</li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Bonus examples</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Lexical scope in classes, adjusted algebra</p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Maybe some code?</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>press 'h' to highlight an important section (that is highlighted
+with &lt;b&gt;...&lt;/b&gt; tags)</p>
+<pre class="prettyprint" data-lang="javascript">
+function isSmall() {
+  return window.matchMedia("(min-device-width: ???)").matches;
+}
+
+<b>function hasTouch() {
+  return Modernizr.touch;
+}</b>
+
+function detectFormFactor() {
+  var device = DESKTOP;
+  if (hasTouch()) {
+    device = isSmall() ? PHONE : TABLET;
+  }
+  return device;
+}
+</pre></article>
+ 
+</slide>
+
+
+<slide class="thank-you-slide segue nobackground">
+  <!-- <aside class="gdbar right"><img src="images/google_developers_icon_128.png"></aside> -->
+  <article class="flexbox vleft auto-fadein">
+    <h2> Thanks everyone!</h2>
+    <p></p>
+  </article>
+  <p data-config-contact class="auto-fadein"></p>
+  </p>
+</slide>
+
+<slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
