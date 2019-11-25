@@ -132,8 +132,9 @@ build_lists: true
 $tl \rightarrow bool$
 
 - For each element $l$ in $tl$, pick one element $b$ in $bool$
-- example - ${(red, false), (yellow, true), (green, true)}$
-- $(false, true, true)$
+- ex: $\{(red, false), (yellow, true), (green, true)\}$
+- ex: $\{(red, false), (yellow, false), (green, true)\}$
+- $\{(false, true, true), (false, false, true)\}$
 - $(tl \rightarrow bool) = (bool, bool, bool) = 2 * 2 * 2$
 
 ---
@@ -144,8 +145,9 @@ build_lists: true
 $bool \rightarrow tl$
 
 - For each element $b$ in $bool$, pick one element $l$ in $tl$
-- example - ${(false, red), (true, yellow)}$
-- $(red, yellow)$
+- ex: $\{(false, red), (true, yellow)\}$
+- ex: $\{(false, yellow), (true, green)\}$
+- $\{(red, yellow), (yellow, green)\}$
 - $(bool \rightarrow tl) = (tl, tl) = 3 * 3$
 
 ---
