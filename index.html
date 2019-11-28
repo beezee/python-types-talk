@@ -329,13 +329,34 @@ URL: https://code.google.com/p/io-2012-slides
   
     <hgroup>
       <h2>Code examples</h2>
-      <h3></h3>
+      <h3>(Mono | Poly)morphism</h3>
     </hgroup>
     <article ><ul>
-<li>Semigroupal append (mono/poly)</li>
-<li>Composition (mono/poly)</li>
+<li>Id</li>
+<li>Modus Ponens </li>
+<li>Semigroupal append</li>
+<li>Composition</li>
 <li>Functoriality (use class from class counting)</li>
 </ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>When to use this</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Are you implementing or defining?</p>
+<ul>
+<li>Call existing function with different value in a new place? Implementing</li>
+<li>Call many existing functions in a new place? Likely defining</li>
+<li>Add new required parameter to function called ubiquitously? Defining</li>
+</ul>
+<p>Implementation (almost) always follows immediately from definition.
+Define as much as possible to be as generic as possible, and implementation
+is often just a few lines of code, a few minutes of time, and working
+correctly from the very first run.</p></article>
  
 </slide>
 
