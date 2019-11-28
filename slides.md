@@ -196,6 +196,7 @@ correctly from the very first run.
 ---
 title: Bonus examples
 
+Actual code, Datadog instrumentation and/or declarative connection
 Lexical scope in classes, adjusted algebra
 
 ---
