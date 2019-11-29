@@ -7,14 +7,9 @@
 ---
 title: Agenda
 
-- Motivation
-- Types as Sets
-- Tuples
-- Functions
-- Classes
-- Shrinking Sets, forgetting on purpose
-- Examples, how many ways can we implement this?
-- There's more - Addition? Algebra? Factorization and Reduction?
+- Counting classes (analysis)
+- Reducing counts (practice)
+- If there's time - production code, addition, algebraic refactoring
 
 ---
 title: Static knowledge
@@ -24,6 +19,8 @@ Typechecker looks at code without running
 Software runs many times, what you know before running, you know _every_ time it runs
 
 How much can you really know before running?
+
+Just like how much tests can do for you, depends on how you write your code.
 
 ---
 title: Types are Sets
