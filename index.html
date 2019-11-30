@@ -73,14 +73,10 @@ URL: https://code.google.com/p/io-2012-slides
 <slide  >
   
     <hgroup>
-      <h2>Agenda</h2>
+      <h2>Why I love types</h2>
       <h3></h3>
     </hgroup>
-    <article ><ul>
-<li>Counting classes (analysis)</li>
-<li>Reducing counts (practice)</li>
-<li>If there's time - production code, addition, algebraic refactoring</li>
-</ul></article>
+    <article ></article>
  
 </slide>
 
@@ -94,6 +90,23 @@ URL: https://code.google.com/p/io-2012-slides
 <p>Software runs many times, what you know before running, you know <em>every</em> time it runs</p>
 <p>How much can you really know before running?</p>
 <p>Just like how much tests can do for you, depends on how you write your code.</p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Agenda</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><ul>
+<li>Counting classes (analysis)
+<pre class="prettyprint" data-lang="python">
+class ThingA:
+  def thingB(self, x: str) -&gt; int ...
+</pre></li>
+<li>Reducing counts (practice)</li>
+</ul></article>
  
 </slide>
 
@@ -317,7 +330,22 @@ URL: https://code.google.com/p/io-2012-slides
       <h2>Composite Types</h2>
       <h3>Classes</h3>
     </hgroup>
-    <article ></article>
+    <article ><pre class="prettyprint" data-lang="python">
+from enum import Enum
+TL = Enum('TL', 'red yellow green')
+Dir = Enum('Dir', 'x y')
+class Intersection:
+  x_light: TL
+  y_light: TL
+  x_waiting: int
+  y_waiting: int
+  threshold: int
+  bias: Dir
+
+  def should_change(self: Intersection) -> bool: ...
+  def change_light(self: Intersection) -> Intersection: ...
+  def arrive(self: Intersection, cars: int) -> Intersection: ...
+</pre></article>
  
 </slide>
 

@@ -5,11 +5,8 @@
 % thankyou: Thanks everyone!
 
 ---
-title: Agenda
+title: Why I love types
 
-- Counting classes (analysis)
-- Reducing counts (practice)
-- If there's time - production code, addition, algebraic refactoring
 
 ---
 title: Static knowledge
@@ -21,6 +18,16 @@ Software runs many times, what you know before running, you know _every_ time it
 How much can you really know before running?
 
 Just like how much tests can do for you, depends on how you write your code.
+
+---
+title: Agenda
+
+- Counting classes (analysis)
+<pre class="prettyprint" data-lang="python">
+class ThingA:
+  def thingB(self, x: str) -> int ...
+</pre>
+- Reducing counts (practice)
 
 ---
 title: Types are Sets
@@ -165,7 +172,22 @@ subtitle: Function = Exponent
 title: Composite Types
 subtitle: Classes
 
+<pre class="prettyprint" data-lang="python">
+from enum import Enum
+TL = Enum('TL', 'red yellow green')
+Dir = Enum('Dir', 'x y')
+class Intersection:
+  x_light: TL
+  y_light: TL
+  x_waiting: int
+  y_waiting: int
+  threshold: int
+  bias: Dir
 
+  def should_change(self: Intersection) -> bool: ...
+  def change_light(self: Intersection) -> Intersection: ...
+  def arrive(self: Intersection, cars: int) -> Intersection: ...
+</pre>
 ---
 title: Code examples
 subtitle: (Mono | Poly)morphism
