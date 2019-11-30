@@ -36,15 +36,11 @@ build_lists: true
 - $str=\{, a, b, ..., aa, ab, ...\}$
 - $int=\{..., -2, -1, 0, 1, 2, ...\}$
 - $bool=\{true, false\}$
-- $void=\{\}$
-- $unit=\{0\}$
 
 ---
 title: Example Types
-subtitle: Zero to Three
+subtitle: Two to Three
 
-- $void=\{\}$
-- $unit=\{0\}$
 - $bool=\{true, false\}$
 - $tl=\{red, yellow, green\}$
 
@@ -92,23 +88,6 @@ title: Composite Types
 subtitle: Tuple = Product 
 
 - $(A, B) = A * B$
-
----
-title: Composite Types
-subtitle: Product
-build_lists: true
-
-$(unit, tl)$
-
-- $(0, red)$
-- $(0, yellow)$
-- $(0, green)$
-
----
-title: Composite Types
-subtitle: Product
-
-$(void, tl)$
 
 ---
 title: Composite Types
@@ -189,14 +168,191 @@ class Intersection:
   def direct_traffic(self: Intersection, cars: int, dir: Dir) -> Intersection: ...
 </pre>
 ---
-title: Code examples
-subtitle: (Mono | Poly)morphism
+title: Reducing Counts
+subtitle: Making classes countable
 
-- Id
-- Modus Ponens 
-- Semigroupal append
-- Composition
-- Functoriality (use class from class counting)
+<pre class="prettyprint" data-lang="python">
+from enum import Enum
+TL = Enum('TL', 'red yellow green')
+Dir = Enum('Dir', 'x y')
+class Intersection:
+  x_light: TL
+  y_light: TL
+  x_waiting: int
+  y_waiting: int
+  threshold: int
+  bias: Dir
+
+def should_change(i: Intersection) -> bool: ...
+def change_light(i: Intersection) -> Intersection: ...
+def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
+</pre>
+---
+title: Reducing counts
+subtitle: Identity 
+build_lists: true
+
+How many ways can we implement...
+
+- <pre class="prettyprint" data-lang="python">
+    def id(x: str) -> str: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def id(x: int) -> int: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def id(x: TL) -> TL: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def id(x: A) -> A: ...
+  </pre>
+
+---
+title: Reducing counts
+subtitle: Eval 
+build_lists: true
+
+How many ways can we implement...
+
+- <pre class="prettyprint" data-lang="python">
+    def eval(x: str, f: Callable[[str], int]) -> int: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def eval(x: int, f: Callable[[int], str]) -> str: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def eval(x: TL, f: Callable[[TL], bool]) -> bool: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def eval(x: A, f: Callable[[A], B]) -> B: ...
+  </pre>
+
+---
+title: Reducing counts
+subtitle: Append
+build_lists: true
+
+How many ways can we implement...
+
+- <pre class="prettyprint" data-lang="python">
+    def append(x: str, y: str) -> str: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def append(x: int, y: int) -> int: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def append(x: TL, y: TL) -> TL: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def append(x: A, y: A) -> A: ...
+  </pre>
+
+---
+title: Reducing counts
+subtitle: Compose
+build_lists: true
+
+How many ways can we implement...
+
+- <pre class="prettyprint" data-lang="python">
+    def compose(g: Callable[[str], int], 
+                f: Callable[[List[str]], str]
+    ) -> Callable[[List[str]], int]: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def compose(g: Callable[[TL], bool], 
+                f: Callable[[int], TL]
+    ) -> Callable[[int], bool]: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def compose(g: Callable[[B], C], 
+                f: Callable[[A], B]
+    ) -> Callable[[A], C]: ...
+  </pre>
+
+---
+title: Reducing counts
+subtitle: Who says typesafe isn't interesting
+
+- <pre class="prettyprint" data-lang="python">
+    def id(x: A) -> A: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def eval(x: A, f: Callable[[A], B]) -> B: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def append(x: A, y: A) -> A: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def compose(g: Callable[[B], C], 
+                f: Callable[[A], B]
+    ) -> Callable[[A], C]: ...
+  </pre>
+
+---
+title: Reducing counts
+subtitle: Making classes smaller - valid states
+
+Count pair of TLs. How many are valid?
+
+<pre class="prettyprint" data-lang="python">
+from enum import Enum
+TL = Enum('TL', 'red yellow green')
+Dir = Enum('Dir', 'x y')
+class Intersection:
+  x_light: TL
+  y_light: TL
+  x_waiting: int
+  y_waiting: int
+  threshold: int
+  bias: Dir
+
+def should_change(i: Intersection) -> bool: ...
+def change_light(i: Intersection) -> Intersection: ...
+def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
+</pre>
+
+---
+title: Reducing counts
+subtitle: Making classes smaller - valid states
+
+<pre class="prettyprint" data-lang="python">
+from enum import Enum
+Dir = Enum('Dir', 'x y')
+class Intersection:
+  moving_dir: Dir
+  is_yellow: bool
+  x_waiting: int
+  y_waiting: int
+  threshold: int
+  bias: Dir
+
+def should_change(i: Intersection) -> bool: ...
+def change_light(i: Intersection) -> Intersection: ...
+def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
+</pre>
+
+---
+title: Reducing counts
+subtitle: Making classes smaller - Parametricity
+
+<pre class="prettyprint" data-lang="python">
+from enum import Enum
+from typing import Generic, TypeVar
+A = TypeVar('A')
+Dir = Enum('Dir', 'x y')
+class Intersection(Generic[A]):
+  moving_dir: Dir
+  is_yellow: bool 
+  x_waiting: A
+  y_waiting: A
+  threshold: A
+  bias: Dir 
+
+def should_change(i: Intersection[A]) -> bool: ...
+def change_light(i: Intersection[A]) -> Intersection[A]: ...
+def direct_traffic(i: Intersection[int], cars: int, dir: Dir) -> Intersection[int]: ...
+</pre>
 
 ---
 title: When to use this
@@ -213,32 +369,10 @@ is often just a few lines of code, a few minutes of time, and working
 correctly from the very first run.
 
 ---
-title: Bonus examples
+title: Closing thoughts 
 
-Actual code, Datadog instrumentation and/or declarative connection
-Lexical scope in classes, adjusted algebra
+If you can make the same progress spending 2 minutes thinking and 2 hours coding,
 
----
-title: Maybe some code?
+that you can spending 2 hours thinking and 2 minutes coding,
 
-press 'h' to highlight an important section (that is highlighted
-with &lt;b&gt;...&lt;/b&gt; tags)
-
-<pre class="prettyprint" data-lang="javascript">
-function isSmall() {
-  return window.matchMedia("(min-device-width: ???)").matches;
-}
-
-<b>function hasTouch() {
-  return Modernizr.touch;
-}</b>
-
-function detectFormFactor() {
-  var device = DESKTOP;
-  if (hasTouch()) {
-    device = isSmall() ? PHONE : TABLET;
-  }
-  return device;
-}
-</pre>
-
+take the latter.

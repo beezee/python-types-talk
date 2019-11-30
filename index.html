@@ -120,8 +120,6 @@ class ThingA:
 <li><mathjax>$str=\{, a, b, ..., aa, ab, ...\}$</mathjax></li>
 <li><mathjax>$int=\{..., -2, -1, 0, 1, 2, ...\}$</mathjax></li>
 <li><mathjax>$bool=\{true, false\}$</mathjax></li>
-<li><mathjax>$void=\{\}$</mathjax></li>
-<li><mathjax>$unit=\{0\}$</mathjax></li>
 </ul></article>
  
 </slide>
@@ -130,11 +128,9 @@ class ThingA:
   
     <hgroup>
       <h2>Example Types</h2>
-      <h3>Zero to Three</h3>
+      <h3>Two to Three</h3>
     </hgroup>
     <article ><ul>
-<li><mathjax>$void=\{\}$</mathjax></li>
-<li><mathjax>$unit=\{0\}$</mathjax></li>
 <li><mathjax>$bool=\{true, false\}$</mathjax></li>
 <li><mathjax>$tl=\{red, yellow, green\}$</mathjax></li>
 </ul></article>
@@ -208,31 +204,6 @@ class ThingA:
     <article ><ul>
 <li><mathjax>$(A, B) = A * B$</mathjax></li>
 </ul></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Composite Types</h2>
-      <h3>Product</h3>
-    </hgroup>
-    <article ><p><mathjax>$(unit, tl)$</mathjax></p>
-<ul class="build">
-<li><mathjax>$(0, red)$</mathjax></li>
-<li><mathjax>$(0, yellow)$</mathjax></li>
-<li><mathjax>$(0, green)$</mathjax></li>
-</ul></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Composite Types</h2>
-      <h3>Product</h3>
-    </hgroup>
-    <article ><p><mathjax>$(void, tl)$</mathjax></p></article>
  
 </slide>
 
@@ -352,16 +323,225 @@ class Intersection:
 <slide  >
   
     <hgroup>
-      <h2>Code examples</h2>
-      <h3>(Mono | Poly)morphism</h3>
+      <h2>Reducing Counts</h2>
+      <h3>Making classes countable</h3>
+    </hgroup>
+    <article ><pre class="prettyprint" data-lang="python">
+from enum import Enum
+TL = Enum('TL', 'red yellow green')
+Dir = Enum('Dir', 'x y')
+class Intersection:
+  x_light: TL
+  y_light: TL
+  x_waiting: int
+  y_waiting: int
+  threshold: int
+  bias: Dir
+
+def should_change(i: Intersection) -> bool: ...
+def change_light(i: Intersection) -> Intersection: ...
+def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Reducing counts</h2>
+      <h3>Identity</h3>
+    </hgroup>
+    <article ><p>How many ways can we implement...</p>
+<ul class="build">
+<li><pre class="prettyprint" data-lang="python">
+    def id(x: str) -&gt; str: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def id(x: int) -&gt; int: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def id(x: TL) -&gt; TL: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def id(x: A) -&gt; A: ...
+  </pre></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Reducing counts</h2>
+      <h3>Eval</h3>
+    </hgroup>
+    <article ><p>How many ways can we implement...</p>
+<ul class="build">
+<li><pre class="prettyprint" data-lang="python">
+    def eval(x: str, f: Callable[[str], int]) -&gt; int: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def eval(x: int, f: Callable[[int], str]) -&gt; str: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def eval(x: TL, f: Callable[[TL], bool]) -&gt; bool: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def eval(x: A, f: Callable[[A], B]) -&gt; B: ...
+  </pre></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Reducing counts</h2>
+      <h3>Append</h3>
+    </hgroup>
+    <article ><p>How many ways can we implement...</p>
+<ul class="build">
+<li><pre class="prettyprint" data-lang="python">
+    def append(x: str, y: str) -&gt; str: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def append(x: int, y: int) -&gt; int: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def append(x: TL, y: TL) -&gt; TL: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def append(x: A, y: A) -&gt; A: ...
+  </pre></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Reducing counts</h2>
+      <h3>Compose</h3>
+    </hgroup>
+    <article ><p>How many ways can we implement...</p>
+<ul class="build">
+<li><pre class="prettyprint" data-lang="python">
+    def compose(g: Callable[[str], int], 
+                f: Callable[[List[str]], str]
+    ) -&gt; Callable[[List[str]], int]: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def compose(g: Callable[[TL], bool], 
+                f: Callable[[int], TL]
+    ) -&gt; Callable[[int], bool]: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def compose(g: Callable[[B], C], 
+                f: Callable[[A], B]
+    ) -&gt; Callable[[A], C]: ...
+  </pre></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Reducing counts</h2>
+      <h3>Who says typesafe isn't interesting</h3>
     </hgroup>
     <article ><ul>
-<li>Id</li>
-<li>Modus Ponens </li>
-<li>Semigroupal append</li>
-<li>Composition</li>
-<li>Functoriality (use class from class counting)</li>
+<li><pre class="prettyprint" data-lang="python">
+    def id(x: A) -&gt; A: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def eval(x: A, f: Callable[[A], B]) -&gt; B: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def append(x: A, y: A) -&gt; A: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def compose(g: Callable[[B], C], 
+                f: Callable[[A], B]
+    ) -&gt; Callable[[A], C]: ...
+  </pre></li>
 </ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Reducing counts</h2>
+      <h3>Making classes smaller - valid states</h3>
+    </hgroup>
+    <article ><p>Count pair of TLs. How many are valid?</p>
+<pre class="prettyprint" data-lang="python">
+from enum import Enum
+TL = Enum('TL', 'red yellow green')
+Dir = Enum('Dir', 'x y')
+class Intersection:
+  x_light: TL
+  y_light: TL
+  x_waiting: int
+  y_waiting: int
+  threshold: int
+  bias: Dir
+
+def should_change(i: Intersection) -> bool: ...
+def change_light(i: Intersection) -> Intersection: ...
+def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Reducing counts</h2>
+      <h3>Making classes smaller - valid states</h3>
+    </hgroup>
+    <article ><pre class="prettyprint" data-lang="python">
+from enum import Enum
+Dir = Enum('Dir', 'x y')
+class Intersection:
+  moving_dir: Dir
+  is_yellow: bool
+  x_waiting: int
+  y_waiting: int
+  threshold: int
+  bias: Dir
+
+def should_change(i: Intersection) -> bool: ...
+def change_light(i: Intersection) -> Intersection: ...
+def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Reducing counts</h2>
+      <h3>Making classes smaller - Parametricity</h3>
+    </hgroup>
+    <article ><pre class="prettyprint" data-lang="python">
+from enum import Enum
+from typing import Generic, TypeVar
+A = TypeVar('A')
+Dir = Enum('Dir', 'x y')
+class Intersection(Generic[A]):
+  moving_dir: Dir
+  is_yellow: bool 
+  x_waiting: A
+  y_waiting: A
+  threshold: A
+  bias: Dir
+
+def should_change(i: Intersection[A]) -> bool: ...
+def change_light(i: Intersection[A]) -> Intersection[A]: ...
+def direct_traffic(i: Intersection[int], cars: int, dir: Dir) -> Intersection[int]: ...
+</pre></article>
  
 </slide>
 
@@ -387,39 +567,12 @@ correctly from the very first run.</p></article>
 <slide  >
   
     <hgroup>
-      <h2>Bonus examples</h2>
+      <h2>Closing thoughts</h2>
       <h3></h3>
     </hgroup>
-    <article ><p>Actual code, Datadog instrumentation and/or declarative connection
-Lexical scope in classes, adjusted algebra</p></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Maybe some code?</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><p>press 'h' to highlight an important section (that is highlighted
-with &lt;b&gt;...&lt;/b&gt; tags)</p>
-<pre class="prettyprint" data-lang="javascript">
-function isSmall() {
-  return window.matchMedia("(min-device-width: ???)").matches;
-}
-
-<b>function hasTouch() {
-  return Modernizr.touch;
-}</b>
-
-function detectFormFactor() {
-  var device = DESKTOP;
-  if (hasTouch()) {
-    device = isSmall() ? PHONE : TABLET;
-  }
-  return device;
-}
-</pre></article>
+    <article ><p>If you can make the same progress spending 2 minutes thinking and 2 hours coding,</p>
+<p>that you can spending 2 hours thinking and 2 minutes coding,</p>
+<p>take the latter.</p></article>
  
 </slide>
 
