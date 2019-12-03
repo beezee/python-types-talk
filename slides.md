@@ -187,107 +187,6 @@ def should_change(i: Intersection) -> bool: ...
 def change_light(i: Intersection) -> Intersection: ...
 def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
 </pre>
----
-title: Reducing counts
-subtitle: Identity 
-build_lists: true
-
-How many ways can we implement...
-
-- <pre class="prettyprint" data-lang="python">
-    def id(x: str) -> str: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def id(x: int) -> int: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def id(x: TL) -> TL: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def id(x: A) -> A: ...
-  </pre>
-
----
-title: Reducing counts
-subtitle: Eval 
-build_lists: true
-
-How many ways can we implement...
-
-- <pre class="prettyprint" data-lang="python">
-    def eval(x: str, f: Callable[[str], int]) -> int: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def eval(x: int, f: Callable[[int], str]) -> str: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def eval(x: TL, f: Callable[[TL], bool]) -> bool: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def eval(x: A, f: Callable[[A], B]) -> B: ...
-  </pre>
-
----
-title: Reducing counts
-subtitle: Append
-build_lists: true
-
-How many ways can we implement...
-
-- <pre class="prettyprint" data-lang="python">
-    def append(x: str, y: str) -> str: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def append(x: int, y: int) -> int: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def append(x: TL, y: TL) -> TL: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def append(x: A, y: A) -> A: ...
-  </pre>
-
----
-title: Reducing counts
-subtitle: Compose
-build_lists: true
-
-How many ways can we implement...
-
-- <pre class="prettyprint" data-lang="python">
-    def compose(g: Callable[[str], int], 
-                f: Callable[[List[str]], str]
-    ) -> Callable[[List[str]], int]: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def compose(g: Callable[[TL], bool], 
-                f: Callable[[int], TL]
-    ) -> Callable[[int], bool]: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def compose(g: Callable[[B], C], 
-                f: Callable[[A], B]
-    ) -> Callable[[A], C]: ...
-  </pre>
-
----
-title: Reducing counts
-subtitle: Who says typesafe isn't interesting
-
-- <pre class="prettyprint" data-lang="python">
-    def id(x: A) -> A: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def eval(x: A, f: Callable[[A], B]) -> B: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def append(x: A, y: A) -> A: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def compose(g: Callable[[B], C], 
-                f: Callable[[A], B]
-    ) -> Callable[[A], C]: ...
-  </pre>
 
 ---
 title: Reducing counts
@@ -331,6 +230,46 @@ def should_change(i: Intersection) -> bool: ...
 def change_light(i: Intersection) -> Intersection: ...
 def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
 </pre>
+
+---
+title: Reducing counts
+subtitle: Identity 
+build_lists: true
+
+How many ways can we implement...
+
+- <pre class="prettyprint" data-lang="python">
+    def id(x: str) -> str: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def id(x: int) -> int: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def id(x: TL) -> TL: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def id(x: A) -> A: ...
+  </pre>
+
+---
+title: Reducing counts
+subtitle: Eval 
+build_lists: true
+
+How many ways can we implement...
+
+- <pre class="prettyprint" data-lang="python">
+    def eval(x: str, f: Callable[[str], int]) -> int: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def eval(x: int, f: Callable[[int], str]) -> str: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def eval(x: TL, f: Callable[[TL], bool]) -> bool: ...
+  </pre>
+- <pre class="prettyprint" data-lang="python">
+    def eval(x: A, f: Callable[[A], B]) -> B: ...
+  </pre>
 
 ---
 title: Reducing counts

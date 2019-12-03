@@ -349,130 +349,6 @@ def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
   
     <hgroup>
       <h2>Reducing counts</h2>
-      <h3>Identity</h3>
-    </hgroup>
-    <article ><p>How many ways can we implement...</p>
-<ul class="build">
-<li><pre class="prettyprint" data-lang="python">
-    def id(x: str) -&gt; str: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def id(x: int) -&gt; int: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def id(x: TL) -&gt; TL: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def id(x: A) -&gt; A: ...
-  </pre></li>
-</ul></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Reducing counts</h2>
-      <h3>Eval</h3>
-    </hgroup>
-    <article ><p>How many ways can we implement...</p>
-<ul class="build">
-<li><pre class="prettyprint" data-lang="python">
-    def eval(x: str, f: Callable[[str], int]) -&gt; int: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def eval(x: int, f: Callable[[int], str]) -&gt; str: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def eval(x: TL, f: Callable[[TL], bool]) -&gt; bool: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def eval(x: A, f: Callable[[A], B]) -&gt; B: ...
-  </pre></li>
-</ul></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Reducing counts</h2>
-      <h3>Append</h3>
-    </hgroup>
-    <article ><p>How many ways can we implement...</p>
-<ul class="build">
-<li><pre class="prettyprint" data-lang="python">
-    def append(x: str, y: str) -&gt; str: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def append(x: int, y: int) -&gt; int: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def append(x: TL, y: TL) -&gt; TL: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def append(x: A, y: A) -&gt; A: ...
-  </pre></li>
-</ul></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Reducing counts</h2>
-      <h3>Compose</h3>
-    </hgroup>
-    <article ><p>How many ways can we implement...</p>
-<ul class="build">
-<li><pre class="prettyprint" data-lang="python">
-    def compose(g: Callable[[str], int], 
-                f: Callable[[List[str]], str]
-    ) -&gt; Callable[[List[str]], int]: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def compose(g: Callable[[TL], bool], 
-                f: Callable[[int], TL]
-    ) -&gt; Callable[[int], bool]: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def compose(g: Callable[[B], C], 
-                f: Callable[[A], B]
-    ) -&gt; Callable[[A], C]: ...
-  </pre></li>
-</ul></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Reducing counts</h2>
-      <h3>Who says typesafe isn't interesting</h3>
-    </hgroup>
-    <article ><ul>
-<li><pre class="prettyprint" data-lang="python">
-    def id(x: A) -&gt; A: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def eval(x: A, f: Callable[[A], B]) -&gt; B: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def append(x: A, y: A) -&gt; A: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def compose(g: Callable[[B], C], 
-                f: Callable[[A], B]
-    ) -&gt; Callable[[A], C]: ...
-  </pre></li>
-</ul></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Reducing counts</h2>
       <h3>Making classes smaller - valid states</h3>
     </hgroup>
     <article ><p>Count pair of TLs. How many are valid?</p>
@@ -516,6 +392,54 @@ def should_change(i: Intersection) -> bool: ...
 def change_light(i: Intersection) -> Intersection: ...
 def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
 </pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Reducing counts</h2>
+      <h3>Identity</h3>
+    </hgroup>
+    <article ><p>How many ways can we implement...</p>
+<ul class="build">
+<li><pre class="prettyprint" data-lang="python">
+    def id(x: str) -&gt; str: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def id(x: int) -&gt; int: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def id(x: TL) -&gt; TL: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def id(x: A) -&gt; A: ...
+  </pre></li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Reducing counts</h2>
+      <h3>Eval</h3>
+    </hgroup>
+    <article ><p>How many ways can we implement...</p>
+<ul class="build">
+<li><pre class="prettyprint" data-lang="python">
+    def eval(x: str, f: Callable[[str], int]) -&gt; int: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def eval(x: int, f: Callable[[int], str]) -&gt; str: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def eval(x: TL, f: Callable[[TL], bool]) -&gt; bool: ...
+  </pre></li>
+<li><pre class="prettyprint" data-lang="python">
+    def eval(x: A, f: Callable[[A], B]) -&gt; B: ...
+  </pre></li>
+</ul></article>
  
 </slide>
 
