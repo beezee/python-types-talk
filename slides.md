@@ -2,7 +2,6 @@
 % subtitle: Getting the most out of mypy
 % author: Brian Zeligson
 % author: ISC Tech Strategy
-% thankyou: Thanks everyone!
 
 ---
 title: Why I love types
@@ -292,20 +291,6 @@ def should_change(i: Intersection[A]) -> bool: ...
 def change_light(i: Intersection[A]) -> Intersection[A]: ...
 def direct_traffic(i: Intersection[int], cars: int, dir: Dir) -> Intersection[int]: ...
 </pre>
-
----
-title: When to use this
-
-Are you implementing or defining?
-
-- Call existing function with different value in a new place? Implementing
-- Call many existing functions in a new place? Likely defining
-- Add new required parameter to function called ubiquitously? Defining
-
-Implementation (almost) always follows immediately from definition.
-Define as much as possible to be as generic as possible, and implementation
-is often just a few lines of code, a few minutes of time, and working
-correctly from the very first run.
 
 ---
 title: Closing thoughts 
