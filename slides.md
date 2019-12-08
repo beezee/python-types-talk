@@ -214,6 +214,8 @@ def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
 title: Reducing counts
 subtitle: Making classes smaller - valid states
 
+Make invalid states unrepresentable
+
 <pre class="prettyprint" data-lang="python">
 from enum import Enum
 Dir = Enum('Dir', 'x y')
