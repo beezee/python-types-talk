@@ -82,11 +82,7 @@ subtitle: Tuple
 - $(bool, tl) = (2, 3) = 6$
 - $(A, B) = A * B$
 
----
-title: Composite Types
-subtitle: Tuple = Product 
-
-- $(A, B) = A * B$
+Tuple = Product Type
 
 ---
 title: Composite Types
@@ -140,11 +136,7 @@ subtitle: Function
 - $(bool \rightarrow tl) = (tl, tl) = (3 * 3) = 9$
 - $(A \rightarrow B) = B ^ A$
 
----
-title: Composite Types
-subtitle: Function = Exponent
-
-- $(A \rightarrow B) = B ^ A$
+Function = Exponent Type
 
 ---
 title: Composite Types
@@ -240,9 +232,6 @@ build_lists: true
 How many ways can we implement...
 
 - <pre class="prettyprint" data-lang="python">
-    def id(x: str) -> str: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
     def id(x: int) -> int: ...
   </pre>
 - <pre class="prettyprint" data-lang="python">
@@ -261,9 +250,6 @@ How many ways can we implement...
 
 - <pre class="prettyprint" data-lang="python">
     def eval(x: str, f: Callable[[str], int]) -> int: ...
-  </pre>
-- <pre class="prettyprint" data-lang="python">
-    def eval(x: int, f: Callable[[int], str]) -> str: ...
   </pre>
 - <pre class="prettyprint" data-lang="python">
     def eval(x: TL, f: Callable[[TL], bool]) -> bool: ...

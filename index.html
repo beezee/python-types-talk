@@ -191,19 +191,8 @@ class ThingA:
 <li><mathjax>$(bool, bool) = (2, 2) = 4$</mathjax></li>
 <li><mathjax>$(bool, tl) = (2, 3) = 6$</mathjax></li>
 <li><mathjax>$(A, B) = A * B$</mathjax></li>
-</ul></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Composite Types</h2>
-      <h3>Tuple = Product</h3>
-    </hgroup>
-    <article ><ul>
-<li><mathjax>$(A, B) = A * B$</mathjax></li>
-</ul></article>
+</ul>
+<p>Tuple = Product Type</p></article>
  
 </slide>
 
@@ -279,19 +268,8 @@ class ThingA:
 <li><mathjax>$(tl \rightarrow bool) = (bool, bool, bool) = (2 * 2 * 2) = 8$</mathjax></li>
 <li><mathjax>$(bool \rightarrow tl) = (tl, tl) = (3 * 3) = 9$</mathjax></li>
 <li><mathjax>$(A \rightarrow B) = B ^ A$</mathjax></li>
-</ul></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Composite Types</h2>
-      <h3>Function = Exponent</h3>
-    </hgroup>
-    <article ><ul>
-<li><mathjax>$(A \rightarrow B) = B ^ A$</mathjax></li>
-</ul></article>
+</ul>
+<p>Function = Exponent Type</p></article>
  
 </slide>
 
@@ -405,9 +383,6 @@ def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
     <article ><p>How many ways can we implement...</p>
 <ul class="build">
 <li><pre class="prettyprint" data-lang="python">
-    def id(x: str) -&gt; str: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
     def id(x: int) -&gt; int: ...
   </pre></li>
 <li><pre class="prettyprint" data-lang="python">
@@ -430,9 +405,6 @@ def direct_traffic(i: Intersection, cars: int, dir: Dir) -> Intersection: ...
 <ul class="build">
 <li><pre class="prettyprint" data-lang="python">
     def eval(x: str, f: Callable[[str], int]) -&gt; int: ...
-  </pre></li>
-<li><pre class="prettyprint" data-lang="python">
-    def eval(x: int, f: Callable[[int], str]) -&gt; str: ...
   </pre></li>
 <li><pre class="prettyprint" data-lang="python">
     def eval(x: TL, f: Callable[[TL], bool]) -&gt; bool: ...
